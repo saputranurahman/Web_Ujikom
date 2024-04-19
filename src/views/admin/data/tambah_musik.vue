@@ -20,34 +20,57 @@
     </div>
     <div class="overflow-y-hidden rounded-lg border">
       <div class="overflow-x-auto">
-      <table class="w-full">
-        <thead>
-          <tr class="bg-blue-600 text-left text-xs font-semibold uppercase tracking-widest text-white">
-            <th class="px-5 py-3">ID</th>
-            <th class="px-5 py-3">Video</th>
-            <th class="px-5 py-3">Catatan</th>
-            <th class="px-5 py-3">Tingkat stres</th>
-          </tr>
-        </thead>
-        <tbody class="text-gray-500">
-  <tr v-for="musik in getDataMusik" :key="musik.id">
-    <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
-      <p class="whitespace-no-wrap">{{ musik.id }}</p>
-    </td>
-    <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
-      <p class="whitespace-no-wrap">{{ musik.video }}</p>
-    </td>
-    <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
-      <p class="whitespace-no-wrap">{{ musik.catatan }}</p>
-    </td>
-    <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
-      <p class="whitespace-no-wrap">{{ musik.TingkatStre.kategori }}</p>
-    </td>
-  </tr>
-</tbody>
- 
-      </table>
-    </div>
+        <table class="w-full">
+          <thead>
+            <tr class="bg-blue-600 text-left text-xs font-semibold uppercase tracking-widest text-white">
+              <th class="px-5 py-3">ID</th>
+              <th class="px-5 py-3">Video</th>
+              <th class="px-5 py-3">Catatan</th>
+              <th class="px-5 py-3">Tingkat stres</th>
+              <th class="px-5 py-3">Status</th>
+            </tr>
+          </thead>
+          <tbody class="text-gray-500">
+            <tr v-for="musik in getDataMusik" :key="musik.id">
+              <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
+                <p class="whitespace-no-wrap">{{ musik.id }}</p>
+              </td>
+              <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
+                <p class="whitespace-no-wrap">{{ musik.video }}</p>
+              </td>
+              <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
+                <p class="whitespace-no-wrap">{{ musik.catatan }}</p>
+              </td>
+              <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
+                <p class="whitespace-no-wrap">{{ musik.TingkatStre.kategori }}</p>
+              </td>
+              <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
+                <p class="whitespace-no-wrap">
+                <div class="flex space-x-4">
+                  <button class="flex items-center text-blue-500 hover:text-blue-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                      stroke="currentColor" class="h-6 w-6 mr-1">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                    </svg>
+                    Edit
+                  </button>
+                  <button class="flex items-center text-red-500 hover:text-red-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                      class="h-6 w-6 mr-1">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                    Delete
+                  </button>
+                </div>
+                </p>
+              </td>
+            </tr>
+
+          </tbody>
+
+        </table>
+      </div>
       <div class="flex flex-col items-center border-t bg-white px-5 py-5 sm:flex-row sm:justify-between">
         <span class="text-xs text-gray-600 sm:text-sm"> Showing 1 to 5 of 12 Entries </span>
         <div class="mt-2 inline-flex sm:mt-0">

@@ -2,7 +2,10 @@ import { createStore } from 'vuex';
 // import order from './modules/order';
 import auth from './modules/auth'; 
 import datauser from './modules/datauser';
-import musik from './modules/musik'
+import musik from './modules/musik';
+import saran from './modules/saran';
+import gerakan from './modules/gerakan';
+import pernafasan from './modules/pernafasan';
 const store = createStore({
   state: {
     isLoading: true,
@@ -10,7 +13,10 @@ const store = createStore({
   modules: {
     auth,
     datauser,
-    musik
+    musik,
+    saran,
+    gerakan,
+    pernafasan
   },
 });
 

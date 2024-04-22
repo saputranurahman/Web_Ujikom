@@ -2,8 +2,8 @@
     <div class="text-gray-900 ml-64 mt-20 p-10">
         <div class="flex items-center justify-between pb-6">
             <div>
-                <h2 class="font-semibold text-gray-700">User Accounts</h2>
-                <span class="text-xs text-gray-500">View accounts of registered users</span>
+                <h2 class="font-semibold text-gray-700">Data Musik</h2>
+                <span class="text-xs text-gray-500">Daftar Data Musik</span>
             </div>
             <div class="flex items-center justify-between">
                 <div class="ml-10 space-x-8 lg:ml-40">
@@ -114,9 +114,7 @@
                             <select id="category"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 w-full">
                                 <option selected="">Pilih Kategori Stres</option>
-                                <option value="TV">1. rendah</option>
-                                <option value="PC">2. sedang</option>
-                                <option value="GA">3. tinggi</option>
+                                <option value="TV">1. swa</option>
                             </select>
                         </div>
                         <div class="col-span-2">

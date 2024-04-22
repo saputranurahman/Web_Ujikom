@@ -2,8 +2,8 @@
     <div class="text-gray-900 ml-64 mt-20 p-10">
         <div class="flex items-center justify-between pb-6">
             <div>
-                <h2 class="font-semibold text-gray-700">User Accounts</h2>
-                <span class="text-xs text-gray-500">View accounts of registered users</span>
+                <h2 class="font-semibold text-gray-700">Data Saran</h2>
+                <span class="text-xs text-gray-500">Daftar Data Saran</span>
             </div>
             <div class="flex items-center justify-between">
                 <div class="ml-10 space-x-8 lg:ml-40">

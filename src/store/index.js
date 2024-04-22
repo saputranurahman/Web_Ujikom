@@ -6,6 +6,7 @@ import musik from './modules/musik';
 import saran from './modules/saran';
 import gerakan from './modules/gerakan';
 import pernafasan from './modules/pernafasan';
+import kategori from "./modules/kategoristres";
 const store = createStore({
   state: {
     isLoading: true,
@@ -16,7 +17,8 @@ const store = createStore({
     musik,
     saran,
     gerakan,
-    pernafasan
+    pernafasan,
+    kategori
   },
 });
 

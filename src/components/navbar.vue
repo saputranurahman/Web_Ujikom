@@ -23,7 +23,7 @@
             href="/latihan">Latihan</a></li>
         <li class="lg:mr-12"><a
             class="rounded text-gray-700 transition focus:outline-none focus:ring-1 focus:ring-blue-700 focus:ring-offset-2"
-            href="#">Musik</a></li>
+            href="/musik">Musik</a></li>
         <li class="lg:mr-12"><a
             class="rounded text-gray-700 transition focus:outline-none focus:ring-1 focus:ring-blue-700 focus:ring-offset-2"
             href="#">Saran</a></li>

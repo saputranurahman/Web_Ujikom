@@ -299,6 +299,7 @@ export default {
           if (result.isConfirmed) {
             // Panggil action postUserData dengan data pengguna baru
             await this.postUserData(this.newUser);
+            await this.fetchDataUser();
             // Tutup modal setelah berhasil menambah pengguna
             this.closeModal();
             // Tampilkan pesan sukses menggunakan Swal.fire

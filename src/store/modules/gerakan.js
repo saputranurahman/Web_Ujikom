@@ -4,9 +4,11 @@ const gerakan = {
   namespaced: true,
   state: {
     dataGerakan: [],
+    dataKategoriTingkatStres: [],
   },
   getters: {
     getDataGerakan: (state) => state.dataGerakan,
+    getDataKategoriTingkatStres: (state) => state.dataKategoriTingkatStres,
   },
   actions: {
     async fetchDataGerakan({ commit }) {
@@ -27,41 +29,55 @@ const gerakan = {
           console.error(error);
           throw error;
         }
+      },  
+      async fetchKategoriTingkatStres({ commit }) {
+        try {
+          const token = localStorage.getItem('token');
+          if (!token) {
+            throw new Error('Token not found');
+          }
+          const config = {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          };
+          const response = await axios.get("http://localhost:8080/api/v1/tingkatstres", config);
+          commit("SET_KATEGORI_TINGKAT_STRES", response.data['data']);
+        } catch (error) {
+          console.error(error);
+          throw error;
+        }
       },
-    // async postMusikData({ commit }, musikData) {
-    //   try {
-    //     const response = await axios.post("http://localhost:8080/api/v1/musik", musikData);
-    //     commit("ADD_MUSIK", response.data); 
-    //     return response.data; 
-    //   } catch (error) {
-    //     alert(error);
-    //     console.error(error);
-    //     throw error; 
-    //   }
-    // },
-    // async deleteMusikData({ commit }, musikId) {
-    //   try {
-    //     await axios.delete(`http://localhost:8080/api/v1/musik/${musikId}`);
-    //     commit("DELETE_MUSIK", musikId); 
-    //   } catch (error) {
-    //     alert(error);
-    //     console.error(error);
-    //     throw error; 
-    //   }
-    // },
-    // actions lainnya ...                          
+      async postGerakankData({ commit }, gerakanData) {
+        try {
+          const token = localStorage.getItem('token');
+          if (!token) {
+            throw new Error('Token not found');
+          }
+          const config = {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          };
+          const response = await axios.post("http://localhost:8080/api/v1/gerakan", gerakanData, config);
+          commit("ADD_GERAKAN", response.data);
+          return response.data;
+        } catch (error) {
+          console.error(error);
+          throw error;
+        }
+      },                       
   },
   mutations: {
     SET_GERAKAN_DATA(state, dataGerakan) {
       state.dataGerakan = dataGerakan;
     },
-    // ADD_MUSIK(state, newMusik) {
-    //   state.dataMusik.push(newMusik); 
-    // },
-    // DELETE_MUSIK(state, musikId) {
-    //   state.dataMusik = state.dataMusik.filter(musik => musik.id !== musikId); 
-    // },
-    // // mutations lainnya ...
+    SET_KATEGORI_TINGKAT_STRES(state, dataKategoriTingkatStres) {
+      state.dataKategoriTingkatStres = dataKategoriTingkatStres;
+    },
+    ADD_GERAKAN(state, newGerakan) {
+      state.dataGerakan.push(newGerakan);
+    },
   },
 };
 

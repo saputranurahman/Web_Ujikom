@@ -18,6 +18,7 @@ import Latihan from '../views/users/latihan.vue';
 import Saran from '../views/admin/table/tablesaran.vue';
 import Gerakan from '../views/admin/table/tabel_gerakan.vue';
 import Pernafasan from '../views/admin/table/table_pernafasan.vue';
+import musik from '../views/users/musik.vue';
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -97,6 +98,11 @@ const router = createRouter({
           path: "/latihan",
           name: "Latihan",
           component: Latihan,
+        },
+        {
+          path: "/musik",
+          name: "musik",
+          component: musik,
         },
         // {
         //   path: "/kategori",

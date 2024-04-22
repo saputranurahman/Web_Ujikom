@@ -2,8 +2,8 @@
     <div class="text-gray-900 ml-64 mt-20 p-10">
         <div class="flex items-center justify-between pb-6">
             <div>
-                <h2 class="font-semibold text-gray-700">User Accounts</h2>
-                <span class="text-xs text-gray-500">View accounts of registered users</span>
+                <h2 class="font-semibold text-gray-700">Data Gerakan</h2>
+                <span class="text-xs text-gray-500">Daftar Data Gerakan</span>
             </div>
             <div class="flex items-center justify-between">
                 <div class="ml-10 space-x-8 lg:ml-40">
@@ -43,7 +43,7 @@
                                 <p class="whitespace-no-wrap">{{ gerakan.catatan }} </p>
                             </td>
                             <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
-                                <p class="whitespace-no-wrap">{{ gerakan.TingkatStre.kategori}} </p>
+                                <p class="whitespace-no-wrap">{{ gerakan.TingkatStre?.kategori }} </p>
                             </td>
                             <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
                                 <p class="whitespace-no-wrap">
@@ -85,11 +85,12 @@
         </div>
     </div>
     <!-- Modal -->
-    <div v-if="modalOpen" class="fixed top-0 left-0 w-full h-full bg-gray-900/20 flex items-center justify-center">
+    <div id="crud-modal" v-if="modalOpen"
+        class="fixed top-0 left-0 w-full h-full bg-gray-900/20 flex items-center justify-center">
         <div class="m-2 inline-flex rounded-xl bg-gray-100 sm:p-2">
             <div class="flex flex-col rounded-lg bg-white sm:w-96">
                 <div class="flex w-full justify-between self-start px-8 py-4">
-                    <h2 class="text-lg font-medium text-gray-700">Tambah Musik</h2>
+                    <h2 class="text-lg font-medium text-gray-700">Tambah Gerakan</h2>
                     <svg @click="closeModal" xmlns="http://www.w3.org/2000/svg"
                         class="h-5 w-5 cursor-pointer text-gray-400" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor" stroke-width="2">
@@ -98,12 +99,12 @@
                 </div>
                 <hr />
 
-                <form class="p-4 md:p-5">
+                <form @submit.prevent="addGerakan" class="p-4 md:p-5">
                     <div class="grid gap-4 mb-4 grid-cols-2">
                         <div class="col-span-2">
                             <label for="name"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                            <input type="text" name="name" id="name"
+                            <input v-model.trim="newGerakan.video" type="text" name="name" id="name"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 placeholder="Type product name" required="">
                         </div>
@@ -111,24 +112,26 @@
                         <div class="col-span-2 sm:col-span-1 w-full">
                             <label for="category"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kategori</label>
-                            <select id="category"
+                            <select v-model.trim="newGerakan.id_stres" id="category"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 w-full">
-                                <option selected="">Pilih Kategori Stres</option>
-                                <option value="TV">1. rendah</option>
-                                <option value="PC">2. sedang</option>
-                                <option value="GA">3. tinggi</option>
+                                <option value="" disabled selected>Pilih Kategori Stres</option>
+                                <!-- Iterasi melalui array dataKategoriTingkatStres dan menampilkan kategori -->
+                                <option v-for="kategori in getDataKategoriTingkatStres" :key="kategori.id"
+                                    :value="kategori.id">{{
+                        kategori.kategori }}</option>
                             </select>
                         </div>
                         <div class="col-span-2">
                             <label for="description"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product
                                 Description</label>
-                            <textarea id="description" rows="4"
+                            <textarea v-model.trim="newGerakan.catatan" id="description" rows="4"
                                 class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Write product description here"></textarea>
                         </div>
                     </div>
-                    <button class="my-2 rounded-md bg-blue-600 py-2 font-medium text-white w-full"> Share</button>
+                    <button type="submit" class="my-2 rounded-md bg-blue-600 py-2 font-medium text-white w-full">
+                        Tambahkan</button>
                 </form>
 
 
@@ -138,28 +141,87 @@
 </template>
 <script>
 import { mapGetters, mapActions } from 'vuex';
-
+import Swal from 'sweetalert2';
 export default {
     data() {
         return {
+            newGerakan: {
+                video: '', // Properti untuk menyimpan tautan video
+                catatan: '',
+                id_stres: '',
+            },
             modalOpen: false
         };
     },
     computed: {
-        ...mapGetters('gerakan', ['getDataGerakan'])
+        ...mapGetters('gerakan', ['getDataGerakan', 'getDataKategoriTingkatStres'])
     },
     methods: {
-        ...mapActions('gerakan', ['fetchDataGerakan']),
+        ...mapActions('gerakan', ['fetchDataGerakan', 'postGerakankData']),
         openModal() {
             this.modalOpen = true;
+             // Mengubah nilai modalOpen menjadi true untuk membuka modal
         },
         closeModal() {
-            this.modalOpen = false;
-        }
+            this.modalOpen = false; // Mengubah nilai modalOpen menjadi false untuk menutup modal
+            // Reset nilai input musik baru setelah menutup modal
+            this.newGerakan = {
+                video: '',
+                catatan: '',
+                id_stres: '',
+            };
+            // Reset pesan kesalahan
+            this.errorMessage = '';
+        },
+        async addGerakan() {
+            try {
+                // Kirim data gerakan baru ke backend
+                await this.postGerakankData(this.newGerakan);
+                await this.fetchDataGerakan();
+                // Tutup modal setelah berhasil menambahkan gerakan
+                this.closeModal();
+                Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Musik added successfully",
+          showConfirmButton: false,
+          timer: 1500
+        });
+                // Reset nilai input
+                this.newGerakan = {
+                    video: '',
+                    catatan: '',
+                    id_stres: '',
+                };
+            }  catch (error) {
+        console.error('Error adding music:', error);
+        this.errorMessage = 'Failed to add music. Please try again.';
+      }
+        },
+    //     async addMusik() {
+    //   try {
+    //     await this.postMusikData(this.newMusik);
+    //     await this.fetchDataMusik(); // Memperbarui data setelah berhasil menambahkan
+    //     this.closeModal(); // Menutup modal setelah berhasil menambahkan
+
+    //     Swal.fire({
+    //       position: "top-end",
+    //       icon: "success",
+    //       title: "Musik added successfully",
+    //       showConfirmButton: false,
+    //       timer: 1500
+    //     });
+    //   } catch (error) {
+    //     console.error('Error adding music:', error);
+    //     this.errorMessage = 'Failed to add music. Please try again.';
+    //   }
+    // },
+
     },
     mounted() {
         // Panggil aksi fetchDataMusik ketika komponen dimuat
         this.fetchDataGerakan();
+        this.$store.dispatch('gerakan/fetchKategoriTingkatStres');
     }
 };
 </script>
